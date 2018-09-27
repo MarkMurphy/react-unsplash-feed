@@ -20,6 +20,10 @@
   padding: 16px;
 }
 
+.post-media {
+  overflow: hidden;
+}
+
 .post-photo {
   display: block;
   width: 100%;

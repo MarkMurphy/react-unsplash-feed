@@ -1,41 +1,92 @@
 import React, { Component } from "react";
 import "./App.css";
 import Feed from "../Feed";
-import Post from "../Post";
-// import ImageList from "../ImageList";
-// import Search from "../Search";
+import Search from "../Search";
 import api from "../../api";
 
 class App extends Component {
   state = {
     images: [],
-    loading: true
+    loading: true,
+    hasMore: true,
+    query: "",
+    page: 1,
+    limit: 9,
+    sort: "latest"
   };
-  x;
 
-  async componentDidMount() {
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.loading && !prevState.loading) {
+      this.wait();
+    }
+  }
+
+  componentDidMount() {
+    this.fetchData(this.state);
+  }
+
+  fetchData = async () => {
     const data = await api.get("photos", {
-      page: 1,
-      per_page: 9
+      page: this.state.page,
+      per_page: this.state.limit,
+      order_by: this.state.sort
     });
 
     console.log(data);
 
-    this.setState({ images: data, loading: false });
-  }
+    this.setState({
+      images: data,
+      loading: false,
+      hasMore: !!data.length
+    });
+  };
 
-  renderPost(item) {
-    return <Post item={item} key={item.id} />;
-  }
+  handleSearch = query => {
+    if (query) {
+      this.search(query);
+    }
+  };
+
+  search = async query => {
+    this.setState({
+      loading: true,
+      page: 1,
+      query
+    });
+
+    const data = await api.get("search/photos", {
+      query,
+      page: this.state.page,
+      per_page: this.state.limit
+    });
+
+    console.log("search result", data);
+
+    const hasMore = data.total_pages > this.state.page;
+
+    this.setState({
+      images: data.results,
+      hasMore,
+      loading: false
+    });
+  };
+
+  wait = () => {
+    this.waiting = true;
+    setTimeout(() => {
+      this.waiting = false;
+      this.forceUpdate();
+    }, 350);
+  };
 
   render() {
-    if (this.state.loading) {
-      return <div>Loading...</div>;
-    }
-
     return (
       <div className="App">
-        <Feed items={this.state.images} renderItem={this.renderPost} />
+        <Search placeholder="Search photos" onSearch={this.handleSearch} />
+        <Feed
+          items={this.state.images}
+          loading={this.state.loading || this.waiting}
+        />
       </div>
     );
   }
