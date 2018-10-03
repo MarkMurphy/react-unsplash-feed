@@ -1,5 +1,7 @@
 .App {
   min-height: 100%;
+  padding-top: 88px;
+  background: inherit;
 }
 
 .App-logo {

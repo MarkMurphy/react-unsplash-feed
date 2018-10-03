@@ -1,16 +1,20 @@
 import React, { Component } from "react";
 import "./App.css";
+import AppHeader from "../AppHeader";
+import Avatar from "../Avatar";
+import Settings from "../Settings";
 import Feed from "../Feed";
 import Search from "../Search";
 import api from "../../api";
 
 class App extends Component {
   state = {
-    images: [],
+    error: false,
     loading: true,
     hasMore: true,
+    images: [],
     query: "",
-    page: 1,
+    page: 0,
     limit: 9,
     sort: "latest"
   };
@@ -23,21 +27,49 @@ class App extends Component {
 
   componentDidMount() {
     this.fetchData(this.state);
+    window.addEventListener("scroll", this.handleScroll, false);
   }
 
-  fetchData = async () => {
-    const data = await api.get("photos", {
-      page: this.state.page,
-      per_page: this.state.limit,
-      order_by: this.state.sort
-    });
+  componentWillUnmount() {
+    window.removeEventListener("scroll", this.handleScroll, false);
+  }
 
-    console.log(data);
+  handleScroll = event => {
+    const {
+      fetchData,
+      state: { error, loading, hasMore }
+    } = this;
 
-    this.setState({
-      images: data,
-      loading: false,
-      hasMore: !!data.length
+    // Bails early if:
+    // * there's an error
+    // * it's already loading
+    // * there's nothing left to load
+    if (error || loading || !hasMore) return;
+
+    const el = document.documentElement;
+    // Checks that the page has scrolled to the bottom
+    if (el.scrollTop + el.clientHeight >= el.scrollHeight - 500) {
+      fetchData();
+    }
+  };
+
+  fetchData = () => {
+    const page = this.state.page + 1;
+
+    this.setState({ loading: true, page }, async () => {
+      const data = await api.get("photos", {
+        page,
+        per_page: this.state.limit,
+        order_by: this.state.sort
+      });
+
+      console.log(data);
+
+      this.setState({
+        images: [...this.state.images, ...data],
+        loading: false,
+        hasMore: !!data.length
+      });
     });
   };
 
@@ -47,28 +79,31 @@ class App extends Component {
     }
   };
 
-  search = async query => {
-    this.setState({
-      loading: true,
-      page: 1,
-      query
-    });
+  search = query => {
+    this.setState(
+      {
+        error: false,
+        loading: true,
+        images: [],
+        page: 1,
+        query
+      },
+      async () => {
+        const data = await api.get("search/photos", {
+          query,
+          page: this.state.page,
+          per_page: this.state.limit
+        });
 
-    const data = await api.get("search/photos", {
-      query,
-      page: this.state.page,
-      per_page: this.state.limit
-    });
+        console.log("search result", data);
 
-    console.log("search result", data);
-
-    const hasMore = data.total_pages > this.state.page;
-
-    this.setState({
-      images: data.results,
-      hasMore,
-      loading: false
-    });
+        this.setState({
+          images: data.results,
+          hasMore: data.total_pages > this.state.page,
+          loading: false
+        });
+      }
+    );
   };
 
   wait = () => {
@@ -82,10 +117,19 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Search placeholder="Search photos" onSearch={this.handleSearch} />
+        <AppHeader>
+          <Search placeholder="Search photos" onSearch={this.handleSearch} />
+          <Settings
+            activator={
+              <Avatar src="https://randomuser.me/api/portraits/men/17.jpg" />
+            }
+          />
+        </AppHeader>
         <Feed
           items={this.state.images}
+          error={this.state.error}
           loading={this.state.loading || this.waiting}
+          hasMore={this.state.hasMore}
         />
       </div>
     );

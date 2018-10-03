@@ -2,36 +2,38 @@ import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 import Post from "../Post";
-import "./Feed.css";
+import styles from "./Feed.module.css";
 import ActivityIndicator from "../ActivityIndicator";
 
+const Error = styled.div`
+  color: #900;
+`;
+
 const Loading = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  width: 100%;
-  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
 `;
 
-const Feed = ({ items, loading }) => {
-  if (loading) {
-    return (
-      <Loading>
-        <ActivityIndicator>Loading...</ActivityIndicator>
-      </Loading>
-    );
-  }
+const End = styled.div`
+  margin-bottom: 32px;
+  padding: 16px;
+  text-align: center;
+`;
 
+const Feed = ({ loading, error, items, hasMore }) => {
   return (
-    <div className="feed">
+    <div className={styles.root}>
       {items.map(item => (
         <Post item={item} key={item.id} />
       ))}
+      {error && <Error>{error}</Error>}
+      {loading && (
+        <Loading>
+          <ActivityIndicator>Loading...</ActivityIndicator>
+        </Loading>
+      )}
+      {!hasMore && <End>You've reached the end!</End>}
     </div>
   );
 };

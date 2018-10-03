@@ -53,7 +53,8 @@ const ActivityIndicator = ({ size, children, color, ...props }) => (
         r="30"
         fill="none"
         strokeWidth="4"
-        stroke="rgba(0, 0, 0, .06)"
+        stroke={color}
+        strokeOpacity="0.06"
       />
       <circle
         cx="32"
@@ -62,6 +63,7 @@ const ActivityIndicator = ({ size, children, color, ...props }) => (
         fill="none"
         strokeWidth="4"
         stroke={color}
+        strokeOpacity="0.24"
       />
     </svg>
     {children}
@@ -69,7 +71,7 @@ const ActivityIndicator = ({ size, children, color, ...props }) => (
 );
 
 ActivityIndicator.defaultProps = {
-  color: "rgba(0, 0, 0, 0.24)",
+  color: "currentColor",
   size: 48
 };
 

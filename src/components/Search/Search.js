@@ -41,7 +41,7 @@ const Instructions = styled.div`
 
 class Search extends Component {
   state = {
-    isOpen: false
+    open: false
   };
 
   componentDidMount() {
@@ -54,14 +54,14 @@ class Search extends Component {
 
   handleDocumentKeyDown = event => {
     if (event.metaKey && event.key === "j") {
-      this.setState({ isOpen: !this.state.isOpen });
-    } else if (event.key === "Escape" && this.state.isOpen) {
-      this.setState({ isOpen: false });
+      this.setState({ open: !this.state.open });
+    } else if (event.key === "Escape" && this.state.open) {
+      this.setState({ open: false });
     }
   };
 
   focus() {
-    if (this.state.isOpen) {
+    if (this.state.open) {
       this.input.focus();
     }
   }
@@ -72,7 +72,7 @@ class Search extends Component {
     this.props.onSearch(this.input.value);
 
     this.setState({
-      isOpen: false
+      open: false
     });
   };
 
@@ -96,7 +96,7 @@ class Search extends Component {
         <Instructions>
           To search press <kbd>⌘</kbd> + <kbd>J</kbd>
         </Instructions>
-        <Modal isOpen={this.state.isOpen}>{form}</Modal>
+        <Modal open={this.state.open}>{form}</Modal>
       </Fragment>
     );
   }
