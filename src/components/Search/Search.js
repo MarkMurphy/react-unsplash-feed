@@ -1,6 +1,6 @@
-import React, { Component, Fragment } from "react";
-import styled from "styled-components";
-import Modal from "../Modal";
+import React, { Component, Fragment } from 'react';
+import styled from 'styled-components';
+import Modal from '../Modal';
 
 const Form = styled.form`
   display: flex;
@@ -30,7 +30,7 @@ const Instructions = styled.div`
   color: #999;
 
   kbd {
-    font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier,
+    font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier,
       monospace;
     margin: 8px;
     padding: 1px 8px;
@@ -41,21 +41,21 @@ const Instructions = styled.div`
 
 class Search extends Component {
   state = {
-    open: false
+    open: false,
   };
 
   componentDidMount() {
-    document.addEventListener("keydown", this.handleDocumentKeyDown, true);
+    document.addEventListener('keydown', this.handleDocumentKeyDown, true);
   }
 
   componentWillUnmount() {
-    document.removeEventListener("keydown", this.handleDocumentKeyDown, true);
+    document.removeEventListener('keydown', this.handleDocumentKeyDown, true);
   }
 
-  handleDocumentKeyDown = event => {
-    if (event.metaKey && event.key === "j") {
+  handleDocumentKeyDown = (event) => {
+    if (event.metaKey && event.key === 'j') {
       this.setState({ open: !this.state.open });
-    } else if (event.key === "Escape" && this.state.open) {
+    } else if (event.key === 'Escape' && this.state.open) {
       this.setState({ open: false });
     }
   };
@@ -66,17 +66,19 @@ class Search extends Component {
     }
   }
 
-  handleSubmit = event => {
+  handleSubmit = (event) => {
     event.preventDefault();
 
     this.props.onSearch(this.input.value);
 
-    this.setState({
-      open: false
-    });
+    this.setState({ open: false });
   };
 
-  inputRef = node => {
+  handleRequestClose = () => {
+    this.setState({ open: false });
+  };
+
+  inputRef = (node) => {
     this.input = node;
     this.focus();
   };
@@ -96,7 +98,9 @@ class Search extends Component {
         <Instructions>
           To search press <kbd>⌘</kbd> + <kbd>J</kbd>
         </Instructions>
-        <Modal open={this.state.open}>{form}</Modal>
+        <Modal open={this.state.open} onRequestClose={this.handleRequestClose}>
+          {form}
+        </Modal>
       </Fragment>
     );
   }

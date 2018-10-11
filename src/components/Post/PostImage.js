@@ -1,9 +1,14 @@
-import React from "react";
-import PropTypes from "prop-types";
-import ProgressiveImage from "../ProgressiveImage";
+import React from 'react';
+import PropTypes from 'prop-types';
+import ProgressiveImage from '../ProgressiveImage';
 
-const PostImage = ({ src, preview, alt }) => (
-  <div className="post-media">
+const PostImage = ({ src, preview, aspectRatio, alt }) => (
+  <div
+    className="post-media"
+    style={{
+      paddingBottom: `${aspectRatio * 100}%`,
+    }}
+  >
     <ProgressiveImage
       className="post-photo"
       image={src}
@@ -16,7 +21,8 @@ const PostImage = ({ src, preview, alt }) => (
 PostImage.propTypes = {
   src: PropTypes.string.isRequired,
   preview: PropTypes.string.isRequired,
-  alt: PropTypes.string
+  aspectRatio: PropTypes.number.isRequired,
+  alt: PropTypes.string,
 };
 
 export default PostImage;

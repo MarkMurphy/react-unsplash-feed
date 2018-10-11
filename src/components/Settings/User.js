@@ -1,6 +1,6 @@
-import React, { Component } from "react";
-import styled from "styled-components";
-import DefaultAvatar from "../Avatar";
+import React from 'react';
+import styled from 'styled-components';
+import DefaultAvatar from '../Avatar';
 
 const Root = styled.div`
   display: flex;
@@ -43,7 +43,7 @@ const Handle = styled.div`
 
 const User = () => (
   <Root>
-    <Avatar src="https://randomuser.me/api/portraits/men/17.jpg" />
+    <Avatar src="https://secure.gravatar.com/avatar/92ce307e552b2c997a47a12f03180fbc?s=120" />
     <Info>
       <Name>John Appleseed</Name>
       <Handle>johnapple</Handle>

@@ -1,16 +1,18 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+
+const cache = new Set();
 
 class ProgressiveImage extends Component {
   static propTypes = {
     image: PropTypes.string,
     preview: PropTypes.string,
-    alt: PropTypes.string
+    alt: PropTypes.string,
   };
 
   state = {
-    currentImage: this.props.preview,
-    loading: true
+    src: this.props.preview,
+    loading: !cache.has(this.props.image),
   };
 
   componentDidMount() {
@@ -19,7 +21,7 @@ class ProgressiveImage extends Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.image !== this.props.image) {
-      this.setState({ currentImage: nextProps.preview, loading: true }, () => {
+      this.setState({ src: nextProps.preview, loading: true }, () => {
         this.fetchImage(nextProps.image);
       });
     }
@@ -31,31 +33,32 @@ class ProgressiveImage extends Component {
     }
   }
 
-  fetchImage = src => {
+  fetchImage = (src) => {
     const image = new Image();
-    image.onload = () =>
-      this.setState({ currentImage: this.image.src, loading: false });
+    image.onload = () => {
+      cache.add(src);
+      this.setState({ src, loading: false });
+    };
     image.src = src;
     this.image = image;
   };
 
-  style = loading => {
+  style = (loading) => {
     return {
       ...this.props.style,
-      transition: "0.5s filter linear",
-      filter: loading ? "blur(50px)" : ""
+      transition: '0.5s filter linear',
+      filter: loading ? 'blur(50px)' : '',
     };
   };
 
   render() {
-    const { currentImage, loading } = this.state;
-    const { alt, ...props } = this.props;
+    const { src, loading } = this.state;
     return (
       <img
-        {...props}
+        {...this.props}
+        alt={this.props.alt}
         style={this.style(loading)}
-        src={currentImage}
-        alt={alt}
+        src={src}
       />
     );
   }

@@ -1,0 +1,4 @@
+const NAMESPACE = 'THEME';
+
+export const CHANGE_THEME = `${NAMESPACE}/CHANGE_THEME`;
+export const TOGGLE_THEME = `${NAMESPACE}/TOGGLE_THEME`;
