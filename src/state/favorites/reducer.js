@@ -2,20 +2,22 @@ import { ADD_FAVORITE, REMOVE_FAVORITE } from './types';
 
 export const initialState = {};
 
+const set = (state, key, value) => {
+  return { ...state, [key]: value };
+};
+
+const del = (state, key) => {
+  const { [key]: _, ...filtered } = state;
+  return filtered;
+};
+
 export default (state = initialState, action) => {
   switch (action.type) {
     case ADD_FAVORITE:
-      // return [...state, action.payload];
-      return {
-        ...state,
-        [action.payload.id]: action.payload,
-      };
+      return set(state, action.payload.id, action.payload);
 
     case REMOVE_FAVORITE:
-      // return state.filter((item) => item.id !== action.payload.id);
-      const { [action.payload.id]: _, ...newState } = state;
-
-      return newState;
+      return del(state, action.payload.id);
 
     default:
       return state;

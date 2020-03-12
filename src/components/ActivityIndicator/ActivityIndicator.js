@@ -1,5 +1,5 @@
-import React from "react";
-import styled, { keyframes } from "styled-components";
+import React from 'react';
+import styled, { keyframes } from 'styled-components';
 
 const loadingRotate = keyframes`
   100% {
@@ -30,8 +30,8 @@ const Root = styled.div`
   align-items: center;
 
   svg {
-    width: ${props => props.size};
-    height: ${props => props.size};
+    width: ${(props) => props.size};
+    height: ${(props) => props.size};
     margin: 16px;
     animation: ${loadingRotate} 2s linear infinite;
   }
@@ -71,8 +71,8 @@ const ActivityIndicator = ({ size, children, color, ...props }) => (
 );
 
 ActivityIndicator.defaultProps = {
-  color: "currentColor",
-  size: 48
+  color: 'currentColor',
+  size: 48,
 };
 
 export default ActivityIndicator;

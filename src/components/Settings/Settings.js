@@ -1,14 +1,14 @@
-import React, { Component, Fragment } from "react";
-import styled from "styled-components";
-import Drawer from "../Drawer";
-import User from "./User";
-import ThemeToggle from "./ThemeToggle";
+import React, { Component, Fragment } from 'react';
+import styled from 'styled-components';
+import Drawer from '../Drawer';
+import User from './User';
+import ThemeToggle from './ThemeToggle';
 
 const SettingsDrawer = styled(Drawer)`
   color: #000;
 `;
 
-const onClick = (activator, callback) => event => {
+const onClick = (activator, callback) => (event) => {
   if (activator.props.onClick) {
     activator.props.onClick(event);
   }
@@ -22,7 +22,7 @@ const onClick = (activator, callback) => event => {
 
 class Settings extends Component {
   state = {
-    open: false
+    open: false,
   };
 
   open = () => {
@@ -37,7 +37,7 @@ class Settings extends Component {
     const { activator, ...props } = this.props;
 
     const anchor = React.cloneElement(activator, {
-      onClick: onClick(activator, this.open)
+      onClick: onClick(activator, this.open),
     });
 
     return (

@@ -1,5 +1,5 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
 
 const Author = ({ user }) => (
   <div className="author">
@@ -14,7 +14,7 @@ const Author = ({ user }) => (
 );
 
 Author.propTypes = {
-  user: PropTypes.object.isRequired
+  user: PropTypes.object.isRequired,
 };
 
 export default Author;

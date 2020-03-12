@@ -1,6 +1,6 @@
-import React from "react";
-import PropTypes from "prop-types";
-import PostAuthor from "./PostAuthor";
+import React from 'react';
+import PropTypes from 'prop-types';
+import PostAuthor from './PostAuthor';
 
 const PostHeader = ({ user }) => (
   <header className="post-header">
@@ -9,7 +9,7 @@ const PostHeader = ({ user }) => (
 );
 
 PostHeader.propTypes = {
-  user: PropTypes.object.isRequired
+  user: PropTypes.object.isRequired,
 };
 
 export default PostHeader;

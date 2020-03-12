@@ -1,14 +1,14 @@
-import React from "react";
-import styled from "styled-components";
+import React from 'react';
+import styled from 'styled-components';
 
 const sizes = {
-  sm: 24
+  sm: 24,
 };
 
 const Root = styled.div`
   display: inline-block;
-  width: ${props => sizes[props.size]}px;
-  height: ${props => sizes[props.size]}px;
+  width: ${(props) => sizes[props.size]}px;
+  height: ${(props) => sizes[props.size]}px;
   border-radius: 50%;
   overflow: hidden;
 `;
@@ -27,8 +27,8 @@ const Avatar = ({ size, src, alt, imageProps, ...props }) => (
 );
 
 Avatar.defaultProps = {
-  size: "sm",
-  alt: ""
+  size: 'sm',
+  alt: '',
 };
 
 export default Avatar;

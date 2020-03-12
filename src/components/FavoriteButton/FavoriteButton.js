@@ -32,7 +32,4 @@ const mapDispatchToProps = {
   toggleFavorite,
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(FavoriteButton);
+export default connect(mapStateToProps, mapDispatchToProps)(FavoriteButton);

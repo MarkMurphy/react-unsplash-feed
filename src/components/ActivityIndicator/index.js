@@ -1,1 +1,1 @@
-export { default } from "./ActivityIndicator";
+export { default } from './ActivityIndicator';
