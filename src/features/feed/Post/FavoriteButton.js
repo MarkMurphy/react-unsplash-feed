@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
-import { BookmarkIcon, BookmarkBorderIcon } from '../Icon';
-import { toggleFavorite, getIsFavorite } from '../../state/favorites';
+import { BookmarkIcon, BookmarkBorderIcon } from '../../../components/Icon';
+import { toggleFavorite, selecttIsFavorite } from '../../../state/favorites';
 
 const Root = styled.div`
   display: flex;
@@ -25,7 +25,7 @@ const FavoriteButton = ({ item, isFavorite, toggleFavorite, ...props }) => (
 );
 
 const mapStateToProps = (state, { item }) => ({
-  isFavorite: getIsFavorite(state, item.id),
+  isFavorite: selecttIsFavorite(state, item.id),
 });
 
 const mapDispatchToProps = {

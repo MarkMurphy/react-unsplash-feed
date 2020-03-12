@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import ProgressiveImage from '../ProgressiveImage';
+import ProgressiveImage from '../../../components/ProgressiveImage';
 
 const PostImage = ({ src, preview, aspectRatio, alt }) => (
   <div
     className="post-media"
     style={{
-      paddingBottom: `${aspectRatio * 100}%`,
+      paddingBottom: `${Math.min(aspectRatio * 100, 100)}%`,
     }}
   >
     <ProgressiveImage

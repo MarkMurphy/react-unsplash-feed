@@ -1,13 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { getFavorites } from '../../state/favorites';
-import ImageList from '../ImageList';
-import AppHeader from '../AppHeader';
-import ArrowBackIcon from '../Icon/ArrowBackIcon';
+import { selectFavorites } from '../../state/favorites';
+import ImageList from '../../components/ImageList';
+import AppHeader from '../../components/AppHeader';
+import ArrowBackIcon from '../../components/Icon/ArrowBackIcon';
 
 const Favorites = ({ favorites }) => (
-  <div class="App">
+  <div className="App">
     <AppHeader>
       <Link to="/">
         <ArrowBackIcon />
@@ -18,7 +18,7 @@ const Favorites = ({ favorites }) => (
 );
 
 const mapState = (state) => ({
-  favorites: getFavorites(state),
+  favorites: selectFavorites(state),
 });
 
 export default connect(mapState)(Favorites);

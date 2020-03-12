@@ -1,9 +1,9 @@
-import React from "react";
-import PropTypes from "prop-types";
-import styled from "styled-components";
-import Post from "../Post";
-import styles from "./Feed.module.css";
-import ActivityIndicator from "../ActivityIndicator";
+import React from 'react';
+import PropTypes from 'prop-types';
+import styled from 'styled-components';
+import ActivityIndicator from '../../components/ActivityIndicator';
+import Post from './Post';
+import styles from './Posts.module.css';
 
 const Error = styled.div`
   color: #900;
@@ -21,10 +21,10 @@ const End = styled.div`
   text-align: center;
 `;
 
-const Feed = ({ loading, error, items, hasMore }) => {
+const FeedList = ({ loading, error, items, hasMore }) => {
   return (
     <div className={styles.root}>
-      {items.map(item => (
+      {items.map((item) => (
         <Post item={item} key={item.id} />
       ))}
       {error && <Error>{error}</Error>}
@@ -38,13 +38,13 @@ const Feed = ({ loading, error, items, hasMore }) => {
   );
 };
 
-Feed.propTypes = {
+FeedList.propTypes = {
   items: PropTypes.array,
-  loading: PropTypes.bool
+  loading: PropTypes.bool,
 };
 
-Feed.defaultProps = {
-  items: []
+FeedList.defaultProps = {
+  items: [],
 };
 
-export default Feed;
+export default FeedList;

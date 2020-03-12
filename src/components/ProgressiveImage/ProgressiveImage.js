@@ -19,10 +19,10 @@ class ProgressiveImage extends Component {
     this.fetchImage(this.props.image);
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.image !== this.props.image) {
-      this.setState({ src: nextProps.preview, loading: true }, () => {
-        this.fetchImage(nextProps.image);
+  componentDidUpdate(prevProps) {
+    if (prevProps.image !== this.props.image) {
+      this.setState({ src: this.props.preview, loading: true }, () => {
+        this.fetchImage(this.props.image);
       });
     }
   }

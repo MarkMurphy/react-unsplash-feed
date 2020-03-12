@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import AppHeader from '../AppHeader';
-import Avatar from '../Avatar';
-import Settings from '../Settings';
-import Feed from '../Feed';
-import Search from '../Search';
-import BookmarkIcon from '../Icon/BookmarkIcon';
+import AppHeader from '../../components/AppHeader';
+import Avatar from '../../components/Avatar';
+import Settings from '../settings';
+import Posts from './Posts';
+import Search from './Search';
+import BookmarkIcon from '../../components/Icon/BookmarkIcon';
 import api from '../../services/api';
-import './Home.css';
 
 class Home extends Component {
   state = {
@@ -55,8 +54,6 @@ class Home extends Component {
         per_page: this.state.limit,
         order_by: this.state.sort,
       });
-
-      console.log(data);
 
       this.setState({
         images: [...this.state.images, ...data],
@@ -115,7 +112,7 @@ class Home extends Component {
             />
           </div>
         </AppHeader>
-        <Feed
+        <Posts
           items={this.state.images}
           error={this.state.error}
           loading={this.state.loading}

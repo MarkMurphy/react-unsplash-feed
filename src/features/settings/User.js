@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import DefaultAvatar from '../Avatar';
+import DefaultAvatar from '../../components/Avatar';
 
 const Root = styled.div`
   display: flex;

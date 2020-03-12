@@ -1,5 +1,4 @@
-const ACCESS_KEY =
-  '7e8948b261ea2a28cdafe10db9c7b3d07b8a1ff1feaf33b909618a6eceefa919';
+const ACCESS_KEY = process.env.REACT_APP_UNSPLASH_API_KEY;
 
 const BASE_URL = 'https://api.unsplash.com/';
 

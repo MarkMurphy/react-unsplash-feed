@@ -1,5 +1,5 @@
 import * as types from './types';
-import { getIsFavorite } from './selectors';
+import { selecttIsFavorite } from './selectors';
 
 export const addFavorite = (image) => ({
   type: types.ADD_FAVORITE,
@@ -15,7 +15,7 @@ export const removeFavorite = (id) => ({
 
 export const toggleFavorite = (image) => (dispatch, getState) =>
   dispatch({
-    type: getIsFavorite(getState(), image.id)
+    type: selecttIsFavorite(getState(), image.id)
       ? types.REMOVE_FAVORITE
       : types.ADD_FAVORITE,
     payload: image,

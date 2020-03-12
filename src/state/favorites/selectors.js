@@ -1,3 +1,3 @@
-export const getFavorites = (state) => Object.values(state.favorites);
-export const getIsFavorite = (state, id) =>
+export const selectFavorites = (state) => Object.values(state.favorites);
+export const selecttIsFavorite = (state, id) =>
   Object.keys(state.favorites).includes(id);

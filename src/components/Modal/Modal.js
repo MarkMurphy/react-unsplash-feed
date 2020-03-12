@@ -9,7 +9,7 @@ const Root = styled.div`
   left: 0;
   right: 0;
   bottom: 0;
-  pointer-events: ${(props) => (props.open ? 'auto' : 'none')}
+  pointer-events: ${(props) => (props.open ? 'auto' : 'none')};
   z-index: 9999;
 `;
 
@@ -32,20 +32,22 @@ class Modal extends Component {
   };
 
   render() {
-    const { children, transparent, ...props } = this.props;
+    const {
+      children,
+      keepMounted,
+      onRequestClose,
+      open,
+      transparent,
+    } = this.props;
 
-    return (
-      !!(props.open || props.keepMounted) &&
-      ReactDOM.createPortal(
-        <Root {...props}>
-          <Backdrop
-            transparent={transparent}
-            onClick={this.props.onRequestClose}
-          />
-          {children}
-        </Root>,
-        document.body,
-      )
+    if (!(open || keepMounted)) return false;
+
+    return ReactDOM.createPortal(
+      <Root open={open}>
+        <Backdrop transparent={transparent} onClick={onRequestClose} />
+        {children}
+      </Root>,
+      document.body,
     );
   }
 }

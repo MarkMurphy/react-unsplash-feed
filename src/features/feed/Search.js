@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import styled from 'styled-components';
-import Modal from '../Modal';
+import Modal from '../../components/Modal';
 
 const Form = styled.form`
   display: flex;
@@ -89,7 +89,7 @@ class Search extends Component {
         <Instructions>
           To close press <kbd>ESC</kbd>
         </Instructions>
-        <Input innerRef={this.inputRef} placeholder={this.props.placeholder} />
+        <Input ref={this.inputRef} placeholder={this.props.placeholder} />
       </Form>
     );
 

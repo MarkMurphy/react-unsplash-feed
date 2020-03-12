@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import PostHeader from './PostHeader';
 import PostImage from './PostImage';
 import PostFooter from './PostFooter';
-import FavoriteButton from '../FavoriteButton';
+import FavoriteButton from './FavoriteButton';
 import './Post.css';
 
 const Post = ({ item, ...props }) => {
