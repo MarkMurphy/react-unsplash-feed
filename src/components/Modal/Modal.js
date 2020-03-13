@@ -38,12 +38,13 @@ class Modal extends Component {
       onRequestClose,
       open,
       transparent,
+      ...props
     } = this.props;
 
     if (!(open || keepMounted)) return false;
 
     return ReactDOM.createPortal(
-      <Root open={open}>
+      <Root {...props} open={open}>
         <Backdrop transparent={transparent} onClick={onRequestClose} />
         {children}
       </Root>,
